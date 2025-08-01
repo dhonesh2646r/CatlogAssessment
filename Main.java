@@ -2,33 +2,10 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.*;
 
-public class Main {
+public class CatalogSecretSolver {
 
     public static BigInteger decode(String value, int base) {
-        BigInteger result = BigInteger.ZERO;
-        BigInteger bigBase = BigInteger.valueOf(base);
-        
-        for (int i = 0; i < value.length(); i++) {
-            char ch = value.charAt(i);
-            int digit = charToDigit(ch);
-            if (digit >= base) {
-                throw new IllegalArgumentException("Invalid digit '" + ch + "' for base " + base);
-            }
-            result = result.multiply(bigBase).add(BigInteger.valueOf(digit));
-        }
-        return result;
-    }
-
-    private static int charToDigit(char ch) {
-        if (ch >= '0' && ch <= '9') {
-            return ch - '0';
-        } else if (ch >= 'a' && ch <= 'z') {
-            return 10 + (ch - 'a');
-        } else if (ch >= 'A' && ch <= 'Z') {
-            return 10 + (ch - 'A');
-        } else {
-            throw new IllegalArgumentException("Invalid character: " + ch);
-        }
+        return new BigInteger(value, base);
     }
 
     public static BigInteger lagrangeInterpolation(List<BigInteger> xs, List<BigInteger> ys) {
@@ -96,6 +73,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         BigInteger secret1 = solveFromFile("testcase1.json");
-        System.out.println(secret1);
+        System.out.println("Secret from Testcase 1: " + secret1);
     }
 }
